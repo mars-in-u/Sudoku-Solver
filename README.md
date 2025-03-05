@@ -28,31 +28,11 @@ This program reads a random Sudoku problem from a file named `sudoku.txt`. Each 
     ./sudoku_read
     ```
 
-## Example `sudoku.txt` Format
-
-The `sudoku.txt` file should contain 50 Sudoku problems, each 10 lines long. For example:
-
-```
-Problem 1 Line 1
-Problem 1 Line 2
-...
-Problem 1 Line 10
-Problem 2 Line 1
-Problem 2 Line 2
-...
-Problem 2 Line 10
-...
-Problem 50 Line 1
-Problem 50 Line 2
-...
-Problem 50 Line 10
-```
-
 ## Notes
 
-- Ensure that each line in `sudoku.txt` does not exceed 15 characters, as the program uses a buffer of size 15 to read each line.
+- Ensure that each line in `sudoku.txt` does not exceed 12 characters, lower than that it was giving me some error. If you want figure it why?
 - The program will pause and wait for user input before exiting, allowing you to see the output.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. I ain't got any license tho. :P
