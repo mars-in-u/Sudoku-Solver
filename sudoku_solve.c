@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 void read_problem(int grid[9][9]);
-bool isValid(int grid, int r, int c, int k);
+bool isValid(int grid[9][9], int r, int c, int num);
 bool solve(int grid[9][9], int r, int c);
 
 int main(void)
@@ -13,6 +13,20 @@ int main(void)
     read_problem(grid); // reading the random problem
 
     // printing the random problem
+    printf("Problem:\n");
+    for (i = 0; i < 9; i++)
+    {
+        for (j = 0; j < 9; j++)
+        {
+            printf("%d", grid[i][j]);
+        }
+        printf("\n");
+    }
+
+    solve(grid, 0, 0);
+    printf("\n\nSolution:\n");
+
+    // printing the random problem solution
     for (i = 0; i < 9; i++)
     {
         for (j = 0; j < 9; j++)
@@ -63,19 +77,21 @@ void read_problem(int grid[9][9])
 bool solve(int grid[9][9], int r, int c)
 {
     if (r == 9)
-        return 1;
+        return true;
     else if (c == 9)
-        return solve(grid, r + 1, c = 0);
+        return solve(grid, r + 1, 0);
     else if (grid[r][c] != 0)
         return solve(grid, r, c + 1);
     else
     {
-        for (int k = 0; k < 9; k++)
+        for (int k = 1; k <= 9; k++)
         {
             if (isValid(grid, r, c, k))
             {
                 grid[r][c] = k;
-                return solve(grid, r, c + 1);
+                if (solve(grid, r, c + 1))
+                    return true;
+                grid[r][c] = 0;
             }
         }
         return false;
@@ -84,7 +100,43 @@ bool solve(int grid[9][9], int r, int c)
     return 0;
 }
 
-bool isValid(int grid, int r, int c, int k)
+// bool isValid(int grid, int r, int c, int k)
+// {
+//     return true;
+// }
+
+bool isValid(int grid[9][9], int r, int c, int num)
 {
-    return true;
+    // Check if num is in the same row
+    for (int i = 0; i < 9; i++)
+    {
+        if (grid[r][i] == num)
+        {
+            return false;
+        }
+    }
+
+    // Check if num is in the same column
+    for (int i = 0; i < 9; i++)
+    {
+        if (grid[i][c] == num)
+        {
+            return false; //
+        }
+    }
+
+    // Check if num is in the same 3x3 subgrid
+    int startRow = r - r % 3, startCol = c - c % 3;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (grid[i + startRow][j + startCol] == num)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true; // Placement is valid
 }
